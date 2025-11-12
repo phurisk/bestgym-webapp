@@ -77,7 +77,7 @@ export default function RegisterModal({ isOpen, onClose, packageName }: Register
           setSuccess(false);
           setFormData({ name: "", phone: "", interest: packageName || "", time: "เช้า" });
           setPhoneError("");
-        }, 2000);
+        }, 4000); // เพิ่มจาก 2 วินาที เป็น 4 วินาที
       }
     } catch (error) {
       alert("เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง");
@@ -111,10 +111,68 @@ export default function RegisterModal({ isOpen, onClose, packageName }: Register
             </button>
 
             {success ? (
-              <div className="text-center py-8">
-                <div className="text-6xl mb-4">✅</div>
-                <h3 className="text-2xl font-bold text-primary mb-2">สำเร็จ!</h3>
-                <p className="text-gray-300">ทีมงานจะติดต่อกลับเร็วๆ นี้</p>
+              <div className="text-center py-12">
+                {/* Logo Animation */}
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: "spring", duration: 0.6 }}
+                  className="mb-6"
+                >
+                  <img 
+                    src="/BestGym/logo.jpg" 
+                    alt="BestGym Logo" 
+                    className="w-24 h-24 rounded-full mx-auto border-4 border-primary shadow-lg shadow-primary/50"
+                  />
+                </motion.div>
+
+                {/* Success Icon */}
+                <motion.div
+                  initial={{ scale: 0, rotate: -180 }}
+                  animate={{ scale: 1, rotate: 0 }}
+                  transition={{ delay: 0.2, type: "spring", duration: 0.8 }}
+                  className="mb-6"
+                >
+                  <div className="w-20 h-20 bg-gradient-to-br from-green-400 to-green-600 rounded-full mx-auto flex items-center justify-center shadow-lg">
+                    <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                </motion.div>
+
+                {/* Success Message */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                >
+                  <h3 className="text-3xl font-bold text-primary mb-3">สมัครสำเร็จ!</h3>
+                  <p className="text-gray-300 text-lg mb-2">ขอบคุณที่สนใจ BestGym</p>
+                  <p className="text-gray-400">ทีมงานจะติดต่อกลับเร็วๆ นี้</p>
+                </motion.div>
+
+                {/* Confetti Effect */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: [0, 1, 0] }}
+                  transition={{ duration: 2, times: [0, 0.5, 1] }}
+                  className="absolute inset-0 pointer-events-none"
+                >
+                  {[...Array(20)].map((_, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ y: 0, x: 0, opacity: 1 }}
+                      animate={{ 
+                        y: Math.random() * 400 - 200,
+                        x: Math.random() * 400 - 200,
+                        opacity: 0,
+                        rotate: Math.random() * 360
+                      }}
+                      transition={{ duration: 1.5, delay: i * 0.05 }}
+                      className="absolute top-1/2 left-1/2 w-2 h-2 bg-primary rounded-full"
+                    />
+                  ))}
+                </motion.div>
               </div>
             ) : (
               <>
