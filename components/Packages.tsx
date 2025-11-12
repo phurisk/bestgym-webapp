@@ -1,12 +1,15 @@
 "use client";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { FaCheck, FaFire } from "react-icons/fa";
+import RegisterModal from "./RegisterModal";
 
 export default function Packages() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedPackage, setSelectedPackage] = useState("");
 
   const packages = [
     {
@@ -77,17 +80,18 @@ export default function Packages() {
               </ul>
 
               <div className="space-y-3">
-                <a
-                  href="https://line.me/R/ti/p/@bestgym"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`block text-center py-3 rounded-full font-bold transition ${pkg.popular
+                <button
+                  onClick={() => {
+                    setSelectedPackage(pkg.name);
+                    setModalOpen(true);
+                  }}
+                  className={`w-full text-center py-3 rounded-full font-bold transition ${pkg.popular
                     ? "bg-white text-black hover:bg-gray-200"
                     : "bg-primary hover:bg-red-700"
                     }`}
                 >
-                  💬 สมัครผ่าน LINE
-                </a>
+                  สมัครทันที
+                </button>
                 <a
                   href="tel:0864199868"
                   className="block text-center py-3 rounded-full font-bold border-2 border-current hover:bg-white/10 transition"
@@ -99,6 +103,12 @@ export default function Packages() {
           ))}
         </div>
       </div>
+      
+      <RegisterModal 
+        isOpen={modalOpen} 
+        onClose={() => setModalOpen(false)} 
+        packageName={selectedPackage}
+      />
     </section>
   );
 }
