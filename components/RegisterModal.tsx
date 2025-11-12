@@ -19,6 +19,7 @@ export default function RegisterModal({ isOpen, onClose, packageName }: Register
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [phoneError, setPhoneError] = useState("");
+  const [pdpaConsent, setPdpaConsent] = useState(false);
 
   const validatePhone = (phone: string) => {
     // ลบช่องว่างและขีดออก
@@ -58,6 +59,12 @@ export default function RegisterModal({ isOpen, onClose, packageName }: Register
       return;
     }
 
+    // ตรวจสอบ PDPA consent
+    if (!pdpaConsent) {
+      alert("กรุณายอมรับนโยบายความเป็นส่วนตัว");
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -77,6 +84,7 @@ export default function RegisterModal({ isOpen, onClose, packageName }: Register
           setSuccess(false);
           setFormData({ name: "", phone: "", interest: packageName || "", time: "เช้า" });
           setPhoneError("");
+          setPdpaConsent(false);
         }, 4000); // เพิ่มจาก 2 วินาที เป็น 4 วินาที
       }
     } catch (error) {
@@ -234,10 +242,25 @@ export default function RegisterModal({ isOpen, onClose, packageName }: Register
                     </select>
                   </div>
 
+                  {/* PDPA Consent */}
+                  <div className="flex items-start gap-3 p-4 bg-black/50 rounded-lg border border-gray-700">
+                    <input
+                      type="checkbox"
+                      id="pdpa-consent"
+                      checked={pdpaConsent}
+                      onChange={(e) => setPdpaConsent(e.target.checked)}
+                      className="mt-1 w-5 h-5 accent-primary cursor-pointer"
+                      required
+                    />
+                    <label htmlFor="pdpa-consent" className="text-sm text-gray-300 cursor-pointer">
+                      ข้าพเจ้ายินยอมให้ <span className="text-primary font-bold">BestGym</span> ติดต่อกลับเรื่องสมาชิก/โปรโมชั่น และยอมรับนโยบายความเป็นส่วนตัว
+                    </label>
+                  </div>
+
                   <button
                     type="submit"
-                    disabled={loading}
-                    className="w-full bg-primary hover:bg-red-700 py-4 rounded-lg font-bold text-lg transition disabled:opacity-50"
+                    disabled={loading || !pdpaConsent}
+                    className="w-full bg-primary hover:bg-red-700 py-4 rounded-lg font-bold text-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {loading ? "กำลังส่ง..." : "ส่งข้อมูล"}
                   </button>
