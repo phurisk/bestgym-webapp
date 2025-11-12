@@ -108,7 +108,7 @@ export default function RegisterModal({ isOpen, onClose, packageName }: Register
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
-            className="bg-dark border-2 border-primary rounded-2xl p-8 max-w-md w-full relative"
+            className="bg-dark border-2 border-primary rounded-2xl p-6 sm:p-8 max-w-md w-full relative mx-4"
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -184,7 +184,7 @@ export default function RegisterModal({ isOpen, onClose, packageName }: Register
               </div>
             ) : (
               <>
-                <h2 className="text-3xl font-bold mb-6">สมัครทันที</h2>
+                <h2 className="text-2xl sm:text-3xl font-bold mb-6">สมัครทันที</h2>
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
                     <label className="block text-sm font-bold mb-2">ชื่อ-นามสกุล</label>

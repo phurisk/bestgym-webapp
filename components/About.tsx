@@ -16,8 +16,8 @@ export default function About() {
   ];
 
   return (
-    <section id="about" ref={ref} className="py-20 bg-dark">
-      <div className="container mx-auto px-4">
+    <section id="about" ref={ref} className="py-20 bg-dark w-full overflow-hidden">
+      <div className="container mx-auto px-4 max-w-full">
         <motion.h2
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}

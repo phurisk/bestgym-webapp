@@ -8,12 +8,16 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+  overflow-x: clip;
+  max-width: 100vw;
+}
+
 body {
   background-color: #0A0A0A;
   color: white;
-  overflow-x: hidden;
-}
-
-html {
-  scroll-behavior: smooth;
+  overflow-x: clip;
+  max-width: 100vw;
+  position: relative;
 }

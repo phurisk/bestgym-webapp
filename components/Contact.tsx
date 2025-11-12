@@ -9,8 +9,8 @@ export default function Contact() {
   const isInView = useInView(ref, { once: true });
 
   return (
-    <section id="contact" ref={ref} className="py-20 bg-black">
-      <div className="container mx-auto px-4">
+    <section id="contact" ref={ref} className="py-20 bg-black w-full overflow-hidden">
+      <div className="container mx-auto px-4 max-w-full">
         <motion.h2
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}

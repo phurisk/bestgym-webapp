@@ -33,8 +33,8 @@ export default function Packages() {
   ];
 
   return (
-    <section id="packages" ref={ref} className="py-20 bg-gradient-to-b from-dark to-black">
-      <div className="container mx-auto px-4">
+    <section id="packages" ref={ref} className="py-20 bg-gradient-to-b from-dark to-black w-full overflow-hidden">
+      <div className="container mx-auto px-4 max-w-full">
         <motion.h2
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -44,7 +44,7 @@ export default function Packages() {
         </motion.h2>
 
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
           {packages.map((pkg, i) => (
             <motion.div
               key={i}
@@ -52,7 +52,7 @@ export default function Packages() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: i * 0.2 }}
               whileHover={{ scale: 1.05, y: -10 }}
-              className={`relative p-8 rounded-2xl ${pkg.popular
+              className={`relative p-6 sm:p-8 rounded-2xl ${pkg.popular
                 ? "bg-gradient-to-br from-primary to-red-900 border-2 border-primary"
                 : "bg-black/50 border border-gray-800"
                 }`}
@@ -64,10 +64,10 @@ export default function Packages() {
                 </div>
               )}
 
-              <h3 className="text-2xl font-bold mb-4">{pkg.name}</h3>
+              <h3 className="text-xl sm:text-2xl font-bold mb-4">{pkg.name}</h3>
               <div className="mb-6">
-                <span className="text-5xl font-bold">{pkg.price}</span>
-                <span className="text-xl text-gray-300"> บาท</span>
+                <span className="text-4xl sm:text-5xl font-bold">{pkg.price}</span>
+                <span className="text-lg sm:text-xl text-gray-300"> บาท</span>
               </div>
 
               <ul className="space-y-3 mb-8">
@@ -85,7 +85,7 @@ export default function Packages() {
                     setSelectedPackage(pkg.name);
                     setModalOpen(true);
                   }}
-                  className={`w-full text-center py-3 rounded-full font-bold transition ${pkg.popular
+                  className={`w-full text-center py-3 rounded-full font-bold transition text-sm sm:text-base ${pkg.popular
                     ? "bg-white text-black hover:bg-gray-200"
                     : "bg-primary hover:bg-red-700"
                     }`}
@@ -94,7 +94,7 @@ export default function Packages() {
                 </button>
                 <a
                   href="tel:0864199868"
-                  className="block text-center py-3 rounded-full font-bold border-2 border-current hover:bg-white/10 transition"
+                  className="block text-center py-3 rounded-full font-bold border-2 border-current hover:bg-white/10 transition text-sm sm:text-base"
                 >
                   📞 โทรสอบถาม
                 </a>
