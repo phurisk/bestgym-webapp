@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaTimes } from "react-icons/fa";
 
@@ -13,13 +13,20 @@ export default function RegisterModal({ isOpen, onClose, packageName }: Register
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
-    interest: packageName || "",
+    interest: packageName || "2 เดือน",
     time: "เช้า",
   });
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [phoneError, setPhoneError] = useState("");
   const [pdpaConsent, setPdpaConsent] = useState(false);
+
+  // Update interest เมื่อ packageName เปลี่ยน
+  useEffect(() => {
+    if (packageName) {
+      setFormData(prev => ({ ...prev, interest: packageName }));
+    }
+  }, [packageName, isOpen]);
 
   const validatePhone = (phone: string) => {
     // ลบช่องว่างและขีดออก
@@ -82,10 +89,10 @@ export default function RegisterModal({ isOpen, onClose, packageName }: Register
         setTimeout(() => {
           onClose();
           setSuccess(false);
-          setFormData({ name: "", phone: "", interest: packageName || "", time: "เช้า" });
+          setFormData({ name: "", phone: "", interest: "2 เดือน", time: "เช้า" });
           setPhoneError("");
           setPdpaConsent(false);
-        }, 4000); // เพิ่มจาก 2 วินาที เป็น 4 วินาที
+        }, 4000);
       }
     } catch (error) {
       alert("เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง");

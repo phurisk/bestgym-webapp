@@ -17,8 +17,16 @@ export async function POST(request: Request) {
       timeZone: "Asia/Bangkok",
     });
 
+    // แปลงช่วงเวลาให้มีรายละเอียด
+    const timeMapping: { [key: string]: string } = {
+      "เช้า": "เช้า (08:00-12:00)",
+      "บ่าย": "บ่าย (12:00-17:00)",
+      "เย็น": "เย็น (17:00-22:00)"
+    };
+
     const leadData = {
       ...data,
+      time: timeMapping[data.time] || data.time,
       timestamp: thaiTimestamp,
       source: "Landing Page",
     };
